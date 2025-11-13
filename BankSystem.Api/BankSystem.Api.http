@@ -1,0 +1,6 @@
+@BankSystem.Api_HostAddress = http://localhost:5197
+
+GET {{BankSystem.Api_HostAddress}}/contas/
+Accept: application/json
+
+###
