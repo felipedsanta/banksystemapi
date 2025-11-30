@@ -1,32 +1,80 @@
 ﻿using BankSystem.Api.Models;
+using BankSystem.Api.Models.Enums;
 using BankSystem.Api.Repositories;
 using BankSystem.Api.Service;
 
 
 namespace BankSystem.Api.Services
 {
-    public class ContaService(IContaRepository contaRepo) : IContaService
+    public class ContaService(IContaRepository contaRepo, IClienteRepository clienteRepo) : IContaService
     {
-        public async Task<List<ContaViewModel>> GetContasAsync(int pageNumber, int pageSize)
+        public async Task<List<ContaViewModel>> GetAllContasAsync(int pageNumber, int pageSize)
         {
             var contas = await contaRepo.GetAllAsync(pageNumber, pageSize);
+            if(contas is null) 
+            {
+                return new List<ContaViewModel>();
+            }
             var viewModels = contas.Select(MapToViewModel).ToList();
             return viewModels;
         }
 
-        public async Task<ContaViewModel> AddAsync(ContaInputModel input)
+        public async Task<List<ContaViewModel>> GetAllContasInclusiveDeletedAsync(int pageNumber, int pageSize)
         {
-            var conta = new Conta(
-                input.Numero,
-                input.Titular!,
-                input.Saldo,
-                input.Tipo,
-                input.ClienteId
-            );
-            await contaRepo.AddAsync(conta);
+            var contas = await contaRepo.GetAllInclusiveDeletedAsync(pageNumber, pageSize);
+            if (contas is null)
+            {
+                return new List<ContaViewModel>();
+            }
+            var viewModels = contas.Select(MapToViewModel).ToList();
+            return viewModels;
+        }
+
+        public async Task<List<ContaViewModel>> GetContasByClienteIdAsync(Guid clienteId)
+        {
+            var contas = await contaRepo.GetContasByClienteIdAsync(clienteId);
+            var viewModels = contas.Select(MapToViewModel).ToList();
+            return viewModels;
+        }
+
+        public async Task<ContaViewModel> AddAsync(ContaInputModel inputModel)
+        {
+            if (await contaRepo.NumeroContaJaExisteAsync(inputModel.Numero))
+            {
+                throw new InvalidOperationException("Este número de conta já está em uso.");
+            }
+
+            if (!await clienteRepo.ClienteExisteAsync(inputModel.ClienteId))
+            {
+                throw new KeyNotFoundException("O ClienteId fornecido não existe.");
+            }
+
+            Conta novaConta;
+            switch (inputModel.Tipo)
+            {
+                case TipoConta.Corrente:
+                    novaConta = new ContaCorrente(
+                        inputModel.Numero,
+                        inputModel.Saldo,
+                        inputModel.ClienteId
+                    );
+                    break;
+
+                case TipoConta.Poupanca:
+                    novaConta = new ContaPoupanca(
+                        inputModel.Numero,
+                        inputModel.Saldo,
+                        inputModel.ClienteId
+                    );
+                    break;
+
+                default:
+                    throw new ArgumentException("Tipo de conta inválido.");
+            }
+            await contaRepo.AddAsync(novaConta);
             await contaRepo.SaveChangesAsync();
 
-            return MapToViewModel(conta);
+            return MapToViewModel(novaConta);
         }
 
         public async Task<bool> NumeroContaJaExisteAsync(int numero)
@@ -56,27 +104,17 @@ namespace BankSystem.Api.Services
             return true;
         }
 
-        public async Task<ContaViewModel> Depositar(Guid id, decimal valor)
-        {
-            var conta = await contaRepo.GetByIdAsync(id);
-            if (conta == null)
-            {
-                throw new KeyNotFoundException("Conta não encontrada.");
-            }
-            conta.Depositar(valor);
-            await contaRepo.SaveChangesAsync();
-            return MapToViewModel(conta);
-        }
         private ContaViewModel MapToViewModel(Conta conta)
         {
             return new ContaViewModel
             {
                 Id = conta.Id,
                 Numero = conta.Numero,
-                Titular = conta.Titular,
+                Titular = conta.Cliente != null ? conta.Cliente.Nome : "Cliente não carregado",
                 Saldo = conta.Saldo,
                 DataCriacao = conta.DataCriacao,
-                Tipo = conta.Tipo
+                Tipo = conta.Tipo,
+                ClienteId = conta.ClienteId
             };
         }
     }

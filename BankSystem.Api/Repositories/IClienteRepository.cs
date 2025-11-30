@@ -6,8 +6,10 @@ namespace BankSystem.Api.Repositories
     {
         Task<bool> CpfJaExisteAsync(string cpf);
         Task<Cliente?> GetByIdAsync(Guid id);
-        Task<bool> ExisteAsync(Guid id);
+        Task<Cliente?> GetByCpfAsync(string cpf);
+        Task<bool> ClienteExisteAsync(Guid id);
         Task AddAsync(Cliente cliente);
         Task<bool> SaveChangesAsync();
+        Task<Cliente?> GetByEmailAsync(string email);
     }
 }

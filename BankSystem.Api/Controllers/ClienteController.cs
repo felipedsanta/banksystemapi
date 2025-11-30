@@ -1,20 +1,18 @@
 ﻿using BankSystem.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ClienteController(IClienteService clienteService) : ControllerBase
 {
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> CriarCliente([FromBody] ClienteInputModel input)
     {
-        if (await clienteService.CpfJaExisteAsync(input.Cpf))
-        {
-            return Conflict(new { Mensagem = "Um cliente com este CPF já existe." });
-        }
-
         var viewModel = await clienteService.CriarClienteAsync(input);
 
         return CreatedAtAction(nameof(GetClientePorId), new { id = viewModel.Id }, viewModel);
@@ -33,11 +31,6 @@ public class ClienteController(IClienteService clienteService) : ControllerBase
     [HttpGet("{id:guid}/contas")]
     public async Task<IActionResult> GetContasDoCliente(Guid id)
     {
-        if (!await clienteService.ClienteExisteAsync(id))
-        {
-            return NotFound(new { Mensagem = "Cliente não encontrado." });
-        }
-
         var viewModels = await clienteService.GetContasDoClienteAsync(id);
 
         return Ok(viewModels);

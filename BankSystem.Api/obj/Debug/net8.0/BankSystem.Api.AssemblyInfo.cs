@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("5fb6b7b7-1526-41db-aeaa-afe3579bfece")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BankSystem.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+164366599e0a1930e8eb252dca31bfe45d63e08d")]
 [assembly: System.Reflection.AssemblyProductAttribute("BankSystem.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BankSystem.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

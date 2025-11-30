@@ -3,7 +3,6 @@
     public enum TipoConta
     {
         Corrente,
-        Poupanca,
-        Investimento
+        Poupanca
     }
 }

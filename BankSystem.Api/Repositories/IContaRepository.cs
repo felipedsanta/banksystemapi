@@ -12,5 +12,6 @@ namespace BankSystem.Api.Repositories
         void Delete(Conta conta);
         Task<bool> SaveChangesAsync();
         Task<IEnumerable<Conta>> GetContasByClienteIdAsync(Guid clienteId);
+        Task<IEnumerable<Conta>> GetAllInclusiveDeletedAsync(int pageNumber, int pageSize);
     }
 }

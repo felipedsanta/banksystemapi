@@ -10,6 +10,7 @@ namespace BankSystem.Api.Repositories
         {
             return await context.Contas
                 .AsNoTracking()
+                .Include(c => c.Cliente)
                 .OrderBy(c => c.Numero)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -20,6 +21,7 @@ namespace BankSystem.Api.Repositories
         {
             return await context.Contas
                 .AsNoTracking()
+                .Include(c => c.Cliente)
                 .Where(c => c.ClienteId == clienteId)
                 .OrderBy(c => c.Numero)
                 .ToListAsync();
@@ -45,6 +47,18 @@ namespace BankSystem.Api.Repositories
         public void Delete(Conta conta)
         {
             context.Contas.Remove(conta);
+        }
+
+        public async Task<IEnumerable<Conta>> GetAllInclusiveDeletedAsync(int pageNumber, int pageSize)
+        {
+            return await context.Contas
+                .IgnoreQueryFilters()
+                .AsNoTracking()
+                .Include(c => c.Cliente)
+                .OrderBy(c => c.Numero)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<bool> SaveChangesAsync()

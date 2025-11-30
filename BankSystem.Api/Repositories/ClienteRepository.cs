@@ -11,12 +11,19 @@ namespace BankSystem.Api.Repositories
             return await context.Clientes.AsNoTracking().AnyAsync(c => c.Cpf == cpf);
         }
 
+        public async Task<Cliente?> GetByCpfAsync(string cpf)
+        {
+            return await context.Clientes
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Cpf == cpf);
+        }
+
         public async Task<Cliente?> GetByIdAsync(Guid id)
         {
             return await context.Clientes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<bool> ExisteAsync(Guid id)
+        public async Task<bool> ClienteExisteAsync(Guid id)
         {
             return await context.Clientes.AsNoTracking().AnyAsync(c => c.Id == id);
         }
@@ -29,6 +36,13 @@ namespace BankSystem.Api.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             return (await context.SaveChangesAsync()) > 0;
+        }
+
+        public async Task<Cliente?> GetByEmailAsync(string email)
+        {
+            return await context.Clientes
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Email == email);
         }
     }
 }

@@ -8,7 +8,9 @@ C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\BankS
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\BankSystem.Api.pdb
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Humanizer.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Microsoft.Build.Locator.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -154,6 +156,7 @@ C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankS
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.csproj.CoreCompileInputs.cache
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.sourcelink.json
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -162,10 +165,15 @@ C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\stati
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSyst.37EFCCBA.Up2Date
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\refint\BankSystem.Api.dll
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.pdb
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\BankSystem.Api.genruntimeconfig.cache
 C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\ref\BankSystem.Api.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Azure.AI.OpenAI.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\OpenAI.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Scrutor.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+C:\Users\felip\source\repos\BankSystem.Api\BankSystem.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
