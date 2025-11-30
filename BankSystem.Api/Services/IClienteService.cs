@@ -7,5 +7,6 @@
         Task<IEnumerable<ContaViewModel>> GetContasDoClienteAsync(Guid clienteId);
         Task<bool> CpfJaExisteAsync(string cpf);
         Task<bool> ClienteExisteAsync(Guid id);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

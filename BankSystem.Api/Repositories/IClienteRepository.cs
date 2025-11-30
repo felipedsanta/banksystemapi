@@ -11,5 +11,6 @@ namespace BankSystem.Api.Repositories
         Task AddAsync(Cliente cliente);
         Task<bool> SaveChangesAsync();
         Task<Cliente?> GetByEmailAsync(string email);
+        void Delete(Cliente cliente);
     }
 }

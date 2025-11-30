@@ -1,4 +1,5 @@
-﻿using BankSystem.Api.Services;
+﻿using BankSystem.Api.Service;
+using BankSystem.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,5 +35,12 @@ public class ClienteController(IClienteService clienteService) : ControllerBase
         var viewModels = await clienteService.GetContasDoClienteAsync(id);
 
         return Ok(viewModels);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeletarConta(Guid id)
+    {
+        await clienteService.DeleteAsync(id);
+        return NoContent();
     }
 }

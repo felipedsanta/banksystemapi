@@ -88,6 +88,27 @@
             "description": "OK"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Cliente"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Cliente/{id}/contas": {
@@ -735,6 +756,9 @@
           "saldo": {
             "type": "number",
             "format": "double"
+          },
+          "ativa": {
+            "type": "boolean"
           },
           "tipo": {
             "enum": [

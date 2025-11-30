@@ -112,6 +112,7 @@ namespace BankSystem.Api.Services
                 Numero = conta.Numero,
                 Titular = conta.Cliente != null ? conta.Cliente.Nome : "Cliente não carregado",
                 Saldo = conta.Saldo,
+                Ativa = conta.Ativo,
                 DataCriacao = conta.DataCriacao,
                 Tipo = conta.Tipo,
                 ClienteId = conta.ClienteId

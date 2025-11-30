@@ -33,6 +33,11 @@ namespace BankSystem.Api.Repositories
             await context.Clientes.AddAsync(cliente);
         }
 
+        public void Delete(Cliente cliente)
+        {
+            context.Clientes.Remove(cliente);
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await context.SaveChangesAsync()) > 0;

@@ -94,6 +94,30 @@ namespace BankSystem.Api.Services
             };
         }
 
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var cliente = await clienteRepo.GetByIdAsync(id);
+            if (cliente == null)
+            {
+                return false;
+            }
+
+            var contas = await contaRepo.GetContasByClienteIdAsync(id);
+            if (contas.Any(c => c.Saldo > 0))
+            {
+                throw new InvalidOperationException("Não é possível inativar cliente com saldo em conta. Realize o saque ou transferência antes.");
+            }
+
+            foreach (var conta in contas)
+            {
+                contaRepo.Delete(conta);
+            }
+
+            clienteRepo.Delete(cliente);
+            await clienteRepo.SaveChangesAsync();
+            return true;
+        }
+
         private ContaViewModel MapContaToViewModel(Conta conta)
         {
             return new ContaViewModel
@@ -101,6 +125,7 @@ namespace BankSystem.Api.Services
                 Id = conta.Id,
                 Numero = conta.Numero,
                 Saldo = conta.Saldo,
+                Ativa = conta.Ativo,
                 Tipo = conta.Tipo,
                 DataCriacao = conta.DataCriacao,
                 ClienteId = conta.ClienteId
