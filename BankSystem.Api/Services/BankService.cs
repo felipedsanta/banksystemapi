@@ -1,9 +1,11 @@
 ﻿using BankSystem.Api.Models;
 using BankSystem.Api.Repositories;
+using Microsoft.Extensions.Logging;
+using System.Drawing;
 
 namespace BankSystem.Api.Services
 {
-    public class BankService(IContaRepository contaRepo, ITransacaoRepository transacaoRepo) : IBankService
+    public class BankService(IContaRepository contaRepo, ITransacaoRepository transacaoRepo, ILogger<BankService> logger) : IBankService
     {
         public async Task<ContaViewModel?> DepositarAsync(Guid id, TransacaoInputModel input)
         {
@@ -19,6 +21,8 @@ namespace BankSystem.Api.Services
             await transacaoRepo.AddAsync(transacao);
 
             await contaRepo.SaveChangesAsync();
+
+            logger.LogInformation($"Depósito de R$ {input.Valor} realizado com sucesso na Conta {conta.Id}.");
             return MapToViewModel(conta);
         }
 
@@ -37,6 +41,8 @@ namespace BankSystem.Api.Services
             await transacaoRepo.AddAsync(transacao);
 
             await contaRepo.SaveChangesAsync();
+
+            logger.LogInformation($"Saque de R$ {input.Valor} realizado com sucesso na Conta {conta.Id}. Saldo restante: {conta.Saldo}");
             return MapToViewModel(conta);
         }
 
@@ -44,6 +50,8 @@ namespace BankSystem.Api.Services
         {
             if (origemId == destinoId) throw new ArgumentException("Não é possível transferir para a mesma conta.");
             if (input.Valor <= 0) throw new ArgumentException("O valor a ser transferido deve ser positivo.");
+
+            var inicio = DateTime.Now;
 
             var origem = await contaRepo.GetByIdAsync(origemId);
             if (origem == null)
@@ -55,6 +63,8 @@ namespace BankSystem.Api.Services
             {
                 throw new KeyNotFoundException("Conta não encontrada.");
             }
+
+            logger.LogDebug("Iniciando transferência de {Origem} para {Destino}", origemId, destinoId);
 
             origem.Debitar(new TransacaoInputModel(input.Valor));
             var logSaque = new Transacao("Transferencia enviada", input.Valor, origemId, destinoId);
@@ -76,12 +86,17 @@ namespace BankSystem.Api.Services
                 }
             }
             await contaRepo.SaveChangesAsync();
+
+            var duracao = DateTime.Now - inicio;
+            logger.LogInformation("Transferência de R$ {Valor} finalizada. De: {OrigemId} Para: {DestinoId}. Tempo: {Duracao}ms",
+                input.Valor, origemId, destinoId, duracao.TotalMilliseconds);
         }
 
         public async Task<IEnumerable<Transacao>> GetExtratoAsync(Guid Id)
         {
             if (await contaRepo.GetByIdAsync(Id) == null)
             {
+                logger.LogWarning("Tentativa de acesso a extrato de conta inexistente: {ContaId}", Id);
                 throw new KeyNotFoundException("Conta não encontrada.");
             }
 
