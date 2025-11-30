@@ -35,7 +35,7 @@ Para rodar este projeto localmente, você precisará de:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/felipedsanta/banksystemapi.git](https://github.com/felipedsanta/banksystemapi.git)
+    git clone https://github.com/felipedsanta/banksystemapi.git
     cd banksystemapi
     ```
 
@@ -59,7 +59,7 @@ Para rodar este projeto localmente, você precisará de:
     Certifique-se que sua Connection String no `appsettings.json` aponta para seu SQL Server local. Depois, rode as migrations:
 
     ```bash
-    cd BankDevTrail.Api
+    cd BankSystem.Api
     dotnet ef database update
     ```
     *Isso criará o banco `BankSystemDb` e todas as tabelas automaticamente.*
