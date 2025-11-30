@@ -71,7 +71,7 @@ Para rodar este projeto localmente, você precisará de:
 
 1.  Inicie a API:
     ```bash
-    dotnet run --project BankDevTrail.Api
+    dotnet run --project BankSystem.Api
     ```
 2.  Acesse o **Swagger** para testar os endpoints:
     👉 `https://localhost:7092/swagger` (ou a porta indicada no seu terminal).
