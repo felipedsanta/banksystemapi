@@ -46,7 +46,7 @@ Para rodar este projeto localmente, você precisará de:
 
     ```bash
     # Chave para assinar os Tokens (invente uma frase longa)
-    dotnet user-secrets set
+    dotnet user-secrets init
     dotnet user-secrets set "Jwt:Key" "MINHA_CHAVE_SUPER_SECRETA_LOCAL_123"
 
     # (Opcional) Se for testar a IA
