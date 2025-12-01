@@ -117,7 +117,10 @@ namespace BankSystem.Unit.Test.Repositories
             Guid contaId;
             using (var context = CriarContexto())
             {
-                var conta = new ContaCorrente(888, 0m, Guid.NewGuid());
+                Cliente cliente = CriarClienteMock();
+                context.Clientes.Add(cliente);
+
+                var conta = new ContaCorrente(888, 0m, cliente.Id);
                 context.Contas.Add(conta);
                 await context.SaveChangesAsync();
                 contaId = conta.Id;
@@ -126,11 +129,14 @@ namespace BankSystem.Unit.Test.Repositories
             using (var context = CriarContexto())
             {
                 var repository = new ContaRepository(context);
+
                 var contaParaDeletar = await repository.GetByIdAsync(contaId);
+
+                Assert.NotNull(contaParaDeletar);
+
                 repository.Delete(contaParaDeletar!);
                 await repository.SaveChangesAsync();
             }
-            // Assert (Verificar se deletou abrindo um novo contexto)
             using (var context = CriarContexto())
             {
                 var contaDeletada = await context.Contas.FirstOrDefaultAsync(c => c.Id == contaId);
@@ -144,7 +150,10 @@ namespace BankSystem.Unit.Test.Repositories
             Guid contaId;
             using (var context = CriarContexto())
             {
-                var conta = new ContaCorrente(777, 200m, Guid.NewGuid());
+                Cliente cliente = CriarClienteMock();
+                context.Clientes.Add(cliente);
+
+                var conta = new ContaCorrente(777, 200m, cliente.Id);
                 context.Contas.Add(conta);
                 await context.SaveChangesAsync();
                 contaId = conta.Id;
@@ -156,7 +165,7 @@ namespace BankSystem.Unit.Test.Repositories
                 var contaEncontrada = await repository.GetByIdAsync(contaId);
                 // Assert
                 Assert.NotNull(contaEncontrada);
-                Assert.Equal(777, contaEncontrada!.Numero);
+                Assert.Equal(777, contaEncontrada.Numero);
             }
         }
         [Fact]

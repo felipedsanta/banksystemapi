@@ -70,30 +70,6 @@ namespace BankSystem.Api.Services
             return contas.Select(MapContaToViewModel).ToList();
         }
 
-        private ClienteViewModel MapClienteToViewModel(Cliente cliente)
-        {
-            return new ClienteViewModel
-            {
-                Id = cliente.Id,
-                Nome = cliente.Nome,
-                Cpf = cliente.Cpf,
-                DataNascimento = cliente.DataNascimento,
-                Celular = cliente.Celular,
-                RendaMensal = cliente.RendaMensal,
-                Endereco = new EnderecoViewModel
-                {
-                    Cep = cliente.Endereco.Cep,
-                    Logradouro = cliente.Endereco.Logradouro,
-                    Numero = cliente.Endereco.Numero,
-                    Complemento = cliente.Endereco.Complemento,
-                    Bairro = cliente.Endereco.Bairro,
-                    Cidade = cliente.Endereco.Cidade,
-                    Estado = cliente.Endereco.Estado
-                },
-                Role = cliente.Role,
-            };
-        }
-
         public async Task<bool> DeleteAsync(Guid id)
         {
             var cliente = await clienteRepo.GetByIdAsync(id);
@@ -118,17 +94,64 @@ namespace BankSystem.Api.Services
             return true;
         }
 
+        public async Task<bool> RestaurarClienteAsync(Guid id)
+        {
+            var cliente = await clienteRepo.GetByIdInclusiveDeletedAsync(id);
+
+            if (cliente == null)
+            {
+                throw new KeyNotFoundException("Cliente não encontrado (nem entre os inativos).");
+            }
+            if (cliente.Ativo)
+            {
+                throw new InvalidOperationException("Este cliente já está ativo.");
+            }
+            cliente.Restaurar();
+
+            foreach (var conta in cliente.Contas)
+            {
+                conta.Restaurar();
+            }
+            await clienteRepo.SaveChangesAsync();
+            return true;
+        }
+
         private ContaViewModel MapContaToViewModel(Conta conta)
         {
             return new ContaViewModel
             {
                 Id = conta.Id,
                 Numero = conta.Numero,
+                Titular = conta.Cliente != null ? conta.Cliente.Nome : "Cliente não carregado",
                 Saldo = conta.Saldo,
                 Ativa = conta.Ativo,
                 Tipo = conta.Tipo,
                 DataCriacao = conta.DataCriacao,
                 ClienteId = conta.ClienteId
+            };
+        }
+
+        private ClienteViewModel MapClienteToViewModel(Cliente cliente)
+        {
+            return new ClienteViewModel
+            {
+                Id = cliente.Id,
+                Nome = cliente.Nome,
+                Cpf = cliente.Cpf,
+                DataNascimento = cliente.DataNascimento,
+                Celular = cliente.Celular,
+                RendaMensal = cliente.RendaMensal,
+                Endereco = new EnderecoViewModel
+                {
+                    Cep = cliente.Endereco.Cep,
+                    Logradouro = cliente.Endereco.Logradouro,
+                    Numero = cliente.Endereco.Numero,
+                    Complemento = cliente.Endereco.Complemento,
+                    Bairro = cliente.Endereco.Bairro,
+                    Cidade = cliente.Endereco.Cidade,
+                    Estado = cliente.Endereco.Estado
+                },
+                Role = cliente.Role,
             };
         }
     }

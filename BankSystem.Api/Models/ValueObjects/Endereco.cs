@@ -12,7 +12,8 @@
 
         protected Endereco() { }
 
-        public Endereco(string cep, string logradouro, string numero, string? complemento, string bairro, string cidade, string estado)
+        public Endereco(string cep, string logradouro, string numero, 
+            string? complemento, string bairro, string cidade, string estado)
         {
             Cep = cep;
             Logradouro = logradouro;

@@ -29,7 +29,9 @@ namespace BankSystem.Api.Repositories
 
         public async Task<Conta?> GetByIdAsync(Guid id)
         {
-            return await context.Contas.FirstOrDefaultAsync(c => c.Id == id);
+            return await context.Contas
+                .Include(c => c.Cliente)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<bool> NumeroContaJaExisteAsync(int numero)

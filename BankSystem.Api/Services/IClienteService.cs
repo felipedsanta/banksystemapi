@@ -8,5 +8,6 @@
         Task<bool> CpfJaExisteAsync(string cpf);
         Task<bool> ClienteExisteAsync(Guid id);
         Task<bool> DeleteAsync(Guid id);
+        Task<bool> RestaurarClienteAsync(Guid id);
     }
 }

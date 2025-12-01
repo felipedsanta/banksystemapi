@@ -23,6 +23,14 @@ namespace BankSystem.Api.Repositories
             return await context.Clientes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<Cliente?> GetByIdInclusiveDeletedAsync(Guid id)
+        {
+            return await context.Clientes
+                .IgnoreQueryFilters()
+                .Include(c => c.Contas)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
         public async Task<bool> ClienteExisteAsync(Guid id)
         {
             return await context.Clientes.AsNoTracking().AnyAsync(c => c.Id == id);
