@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSystem.Api", "BankSystem.Api\BankSystem.Api.csproj", "{A7AE6FFA-B749-4242-B53E-9B362C0CED57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSystem.Unit.Test", "BankSystem.Unit.Test\BankSystem.Unit.Test.csproj", "{ACD8E090-5921-4565-9032-FA4FCAFE0D92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A7AE6FFA-B749-4242-B53E-9B362C0CED57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7AE6FFA-B749-4242-B53E-9B362C0CED57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7AE6FFA-B749-4242-B53E-9B362C0CED57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD8E090-5921-4565-9032-FA4FCAFE0D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD8E090-5921-4565-9032-FA4FCAFE0D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD8E090-5921-4565-9032-FA4FCAFE0D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD8E090-5921-4565-9032-FA4FCAFE0D92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
